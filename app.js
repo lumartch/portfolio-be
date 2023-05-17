@@ -8,7 +8,7 @@ app.use("/projects", projectRoutes);
 
 const connectDB = async () => {
     try {
-        await mongoose.connect("mongodb+srv://lumartch:Hbz8w27ltbqnzHCP@cluster0.my6yvi8.mongodb.net/?retryWrites=true&w=majority");
+        await mongoose.connect("mongodb+srv://lumartch:@cluster0.my6yvi8.mongodb.net/?retryWrites=true&w=majority");
         app.listen(4280);
     } catch(e) {
         console.error(e)
