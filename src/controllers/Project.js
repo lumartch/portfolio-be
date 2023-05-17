@@ -9,7 +9,19 @@ const getProjects = async (req, res) => {
     } catch (e) {
         console.error("Error: ", e);
         res.status(500).json({
-            message: e,
+            message: "Project no retrieved.",
+        });
+    }
+}
+
+const getProjectById = async (req, res) => {
+    try {
+        let project = await ProjectService.findProjectById(req.params.id);
+        res.json(project);
+    } catch (e) {
+        console.error("Error: ", e);
+        res.status(404).json({
+            message: "Project not found.",
         });
     }
 }
@@ -24,9 +36,9 @@ const createProject = async (req, res) => {
     } catch (e) {
         console.error("Error: ", e);
         res.status(400).json({
-            message: e,
+            message: "Project already exists",
         });
     }
 }
 
-module.exports = { getProjects, createProject }
+module.exports = { getProjects, createProject, getProjectById };
