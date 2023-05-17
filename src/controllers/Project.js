@@ -16,11 +16,14 @@ const getProjects = async (req, res) => {
 
 const createProject = async (req, res) => {
     try {
-        let projects = await ProjectService.createProject(req.body);
-        res.status(201);
+        let projectSaved = await ProjectService.createProject(req.body);
+        res.status(201).json({
+            message: "Project created",
+            projectSaved: projectSaved,
+        });
     } catch (e) {
         console.error("Error: ", e);
-        res.status(500).json({
+        res.status(400).json({
             message: e,
         });
     }
