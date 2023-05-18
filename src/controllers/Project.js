@@ -41,4 +41,18 @@ const createProject = async (req, res) => {
     }
 }
 
-module.exports = { getProjects, createProject, getProjectById };
+const updateProject = async (req, res) => {
+    const { id } = req.params;
+    const projectData = req.body;
+    try {
+        const updatedProjecData = await ProjectService.updateProject(id, projectData);
+        res.status(200).json(updatedProjecData);
+    } catch (e) {
+        console.error("Error: ", e);
+        res.status(500).json({
+            message: "Internal error",
+        });
+    }
+}
+
+module.exports = { getProjects, createProject, getProjectById, updateProject };
