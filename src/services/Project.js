@@ -16,12 +16,12 @@ const createProject = async (requestBody) => {
     return await project.save();
 }
 
-const findProjectById = async(id) => {
+const findProjectById = async (id) => {
     return await Project.findById(id).lean().exec();
 }
 
-const updateProject = async() => {
-
+const updateProject = async (id, projectData) => {
+    return await Project.findByIdAndUpdate(id, projectData, { new: true } ).lean().exec();
 }
 
 module.exports = { getProjects, createProject, findProjectById, updateProject }
