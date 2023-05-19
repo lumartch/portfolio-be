@@ -36,7 +36,7 @@ const createProject = async (req, res) => {
     } catch (e) {
         console.error("Error: ", e);
         res.status(400).json({
-            message: "Project already exists",
+            message: "Missing values on the body",
         });
     }
 }
