@@ -50,3 +50,18 @@ describe("When calling the update project service", () => {
         expect(data).toEqual(updateProject)
     });
 });
+
+describe("When calling the delete project service", () => {
+    let id;
+    beforeEach(() => {
+        id = chance.guid();
+        global.console = { log: jest.fn(), error: jest.fn() }
+        projectModel.findByIdAndDelete = jest.fn().mockReturnThis();
+        projectModel.lean = jest.fn().mockReturnThis();
+        projectModel.exec = jest.fn().mockResolvedValue();
+    });
+    it("Should call findById with an ID property", async () => {
+        await projectService.deleteProject(id);
+        expect(projectModel.findByIdAndDelete).toBeCalledWith(id);
+    });
+});

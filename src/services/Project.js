@@ -24,4 +24,8 @@ const updateProject = async (id, projectData) => {
     return await Project.findByIdAndUpdate(id, projectData, { new: true } ).lean().exec();
 }
 
-module.exports = { getProjects, createProject, findProjectById, updateProject }
+const deleteProject = async (id) => {
+    return await Project.findByIdAndDelete(id).lean().exec();
+}
+
+module.exports = { getProjects, createProject, findProjectById, updateProject, deleteProject }
