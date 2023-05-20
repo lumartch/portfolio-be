@@ -17,7 +17,13 @@ const getProjects = async (req, res) => {
 const getProjectById = async (req, res) => {
     try {
         let project = await ProjectService.findProjectById(req.params.id);
-        res.json(project);
+        if(!project){
+            res.status(404).json({
+                message: "Project not found.",
+            });
+        } else{ 
+            res.json(project);
+        }
     } catch (e) {
         console.error("Error: ", e);
         res.status(404).json({
@@ -55,4 +61,15 @@ const updateProject = async (req, res) => {
     }
 }
 
-module.exports = { getProjects, createProject, getProjectById, updateProject };
+const deleteProject = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await ProjectService.deleteProject(id);
+        res.status(204).json();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal error" });
+    }
+}
+
+module.exports = { getProjects, createProject, getProjectById, updateProject, deleteProject };

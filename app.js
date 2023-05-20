@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 const projectRoutes = require("./src/routes/Project");
 const app = express();
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
 app.use("/projects", projectRoutes);
 const connectDB = async () => {
