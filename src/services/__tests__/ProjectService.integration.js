@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 global.console = { log: jest.fn(), error: jest.fn() }
 
 beforeAll(async() => {
+    console.log(process.env.PORT);
     await mongoose.connect(process.env.DATABASE);
 });
 
