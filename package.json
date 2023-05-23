@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon app.js",
     "test": "jest --watch",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "test-ci": "jest --verbose --forceExit"
   },
   "repository": {
     "type": "git",

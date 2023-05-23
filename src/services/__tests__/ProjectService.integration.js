@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../../../app").app;
-const Project = require("../../models/Project");
+const Project = require("../../models/ProjectModel");
 
 const mongoose = require("mongoose");
 global.console = { log: jest.fn(), error: jest.fn() }
@@ -66,7 +66,7 @@ describe("POST /projects", () => {
         const { overview,  ...incompleteProject } = projectOne;
         const response = await request(app).post("/projects").send(incompleteProject);
         expect(response.status).toBe(400);
-        expect(response.error.text).toContain("Missing values on the body");
+        expect(response.error.text).toContain("{\"message\":\"Project validation failed\"}");
     })
 
 });

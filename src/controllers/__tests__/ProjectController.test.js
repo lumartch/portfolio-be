@@ -1,16 +1,16 @@
 const Chance = require("chance");
 
 //What we want to test
-const projectController = require("../Project");
+const projectController = require("../ProjectController");
 
 //Dependencies
 
-const projectService = require("../../services/Project");
+const projectService = require("../../services/ProjectService");
 
 const chance = new Chance();
 
 // Mocked dependencies
-jest.mock("../../services/Project");
+jest.mock("../../services/ProjectService");
 
 describe("When calling the update project controller", () => {
     let id, projectData, updateProject;
