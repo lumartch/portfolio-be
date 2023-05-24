@@ -17,10 +17,12 @@ env:
   PORT: ${{ secrets.PORT }}
 
 jobs:
-  build:
-
+  build: 
+    
     runs-on: ubuntu-latest
 
+    environment: production
+    
     strategy:
       matrix:
         node-version: [18.x]
