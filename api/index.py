@@ -8,12 +8,12 @@ BASE_API_URI = EApiPaths.BASE_API_URI.value + EApiPaths.USER.value + EApiPaths.P
 
 @app.route(BASE_API_URI + EApiPaths.INFO.value)
 def getUser(username):
-    uri = EGitHub.GITHUB_BASE_URI.value + EGitHub.USER.value.replace('{username}', username)
-    r = requests.get(url = uri)
-    return r.json()
+    # uri = EGitHub.GITHUB_BASE_URI.value + EGitHub.USER.value.replace('{username}', username)
+    # r = requests.get(url = uri)
+    return { "usermane": username }
 
 @app.route(BASE_API_URI + EApiPaths.REPOS.value)
 def getRepos(username):
-    uri = EGitHub.GITHUB_BASE_URI.value + EGitHub.REPOS.value.replace('{username}', username)
-    r = requests.get(url = uri)
-    return r.json()
+    # uri = EGitHub.GITHUB_BASE_URI.value + EGitHub.REPOS.value.replace('{username}', username)
+    # r = requests.get(url = uri)
+    return { "usermane": username }
