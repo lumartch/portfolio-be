@@ -1,7 +1,7 @@
 from flask import Flask
 import requests
 
-from src.util.Enums import *
+from util.Enums import *
 
 app = Flask(__name__)
 BASE_API_URI = EApiPaths.BASE_API_URI.value + EApiPaths.USER.value + EApiPaths.PATH_PARAM_USER.value
