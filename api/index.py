@@ -1,5 +1,4 @@
 from flask import Flask
-import requests
 
 from src.util.Enums import *
 from src.service.GitHubService import GitHubService
@@ -14,6 +13,4 @@ def getUser(username):
 
 @app.route(BASE_API_URI + EApiPaths.REPOS.value)
 def getRepos(username):
-    uri = EGitHub.GITHUB_BASE_URI.value + EGitHub.REPOS.value.replace('{username}', username)
-    r = requests.get(url = uri)
-    return r.json()
+    return github_service.getGithubRepos(username=username)
