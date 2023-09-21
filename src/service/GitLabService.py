@@ -1,11 +1,12 @@
 import json
 from flask import abort
 import requests
+
 from src.util.Enums import EGitLab
+from src.util.Enums import EGitSource
 from src.models.Profile import Profile
 from src.mappers.ProjectMapper import ProjectMapper
 from src.util.ErrorMessageFormatter import notFoundUsername
-from src.util.Enums import EGitSource
 
 class GitLabService():
     profile_uri = EGitLab.GITLAB_BASE_URI.value + EGitLab.USER.value
@@ -15,7 +16,7 @@ class GitLabService():
         try:
             response = requests.get(url = profile_uri)
             if response.status_code == 404:
-                abort(404, notFoundUsername(username))
+                abort(404, notFoundUsername(username, git_source=EGitSource.GIT_LAB))
             profile = json.loads(json.dumps(Profile(response.json()).__dict__))
             return profile
         # except requests.exceptions.Timeout:

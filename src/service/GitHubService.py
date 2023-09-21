@@ -1,7 +1,9 @@
 import json
 from flask import abort
 import requests
+
 from src.util.Enums import EGitHub
+from src.util.Enums import EGitSource
 from src.models.Profile import Profile
 from src.mappers.ProjectMapper import ProjectMapper
 from src.util.ErrorMessageFormatter import notFoundUsername
@@ -14,7 +16,7 @@ class GitHubService():
         try:
             response = requests.get(url = profile_uri)
             if response.status_code == 404:
-                abort(404, notFoundUsername(username))
+                abort(404, notFoundUsername(username, EGitSource.GIT_HUB))
             profile = json.loads(json.dumps(Profile(response.json()).__dict__))
             return profile
         # except requests.exceptions.Timeout:

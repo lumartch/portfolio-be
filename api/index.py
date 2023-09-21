@@ -19,10 +19,15 @@ def getUser(username: str = Route()):
 
 @app.get(BASE_API_URI + EApiPaths.REPOS.value)
 @ValidateParameters()
-def getRepos(username: str = Route(), archived: bool = Query(False)):
-    github_repos = github_service.getGithubRepos(username=username, archived=archived)
-    gitlab_repos = gitlab_service.getGitlabRepos(username=username, archived=archived)
-    return github_repos + gitlab_repos
+def getRepos(username: str = Route(), archived: bool = Query(False), git_source: str = Query(EGitSource.ALL.value)):
+    if(git_source == EGitSource.GIT_HUB.value):
+        return github_service.getGithubRepos(username=username, archived=archived)
+    elif(git_source == EGitSource.GIT_LAB.value):
+        return gitlab_service.getGitlabRepos(username=username, archived=archived)
+    else:
+        github_repos = github_service.getGithubRepos(username=username, archived=archived)
+        gitlab_repos = gitlab_service.getGitlabRepos(username=username, archived=archived)
+        return github_repos + gitlab_repos
 
 @app.errorhandler(HTTPException)
 def handle_exception(e):

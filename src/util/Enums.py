@@ -12,6 +12,7 @@ class EGitLab(Enum):
     REPOS = '/users/{username}/projects'
 
 class EGitSource(Enum):
+    ALL = 'all'
     GIT_HUB = 'github'
     GIT_LAB = 'gitlab'
 
@@ -23,4 +24,4 @@ class EApiPaths(Enum):
     REPOS = '/repos'
 
 class EErrorMessages(Enum):
-    USERNAME_NOT_FOUND = "Username '{username}' not found in Github."
+    USERNAME_NOT_FOUND = "Username '{username}' not found in {git_source}."
