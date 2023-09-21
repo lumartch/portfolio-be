@@ -1,15 +1,16 @@
 import json
 from flask import abort
 import requests
-from src.util.Enums import EGitHub
+from src.util.Enums import EGitLab
 from src.models.Profile import Profile
 from src.mappers.ProjectMapper import ProjectMapper
 from src.util.ErrorMessageFormatter import notFoundUsername
+from src.util.Enums import EGitSource
 
-class GitHubService():
-    profile_uri = EGitHub.GITHUB_BASE_URI.value + EGitHub.USER.value
-    repos_uri = EGitHub.GITHUB_BASE_URI.value + EGitHub.REPOS.value
-    def getGithubProfile(self, username):
+class GitLabService():
+    profile_uri = EGitLab.GITLAB_BASE_URI.value + EGitLab.USER.value
+    repos_uri = EGitLab.GITLAB_BASE_URI.value + EGitLab.REPOS.value
+    def getGitlabProfile(self, username: str):
         profile_uri = self.profile_uri.replace('{username}', username)
         try:
             response = requests.get(url = profile_uri)
@@ -24,11 +25,12 @@ class GitHubService():
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
     
-    def getGithubRepos(self, username, archived):
+    def getGitlabRepos(self, username: str, archived: bool = False):
         repos_uri = self.repos_uri.replace('{username}', username)
+        params = { "archived": archived }
         try:
-            response = requests.get(url = repos_uri).text
-            projects = list( filter (lambda project: project['archived'] == archived, map(ProjectMapper.fromGitHubtoProject, json.loads(response)) ) )
+            response = requests.get(url = repos_uri, params=params).text
+            projects = list(map( lambda entry: ProjectMapper.fromGitlabtoProject(json=entry, archived=archived), json.loads(response)))
             return projects
         # except requests.exceptions.Timeout:
             # Maybe set up for a retry, or continue in a retry loop
