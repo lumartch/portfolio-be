@@ -14,8 +14,19 @@ gitlab_service = GitLabService()
 
 @app.get(BASE_API_URI + EApiPaths.INFO.value)
 @ValidateParameters()
-def getUser(username: str = Route()):
-    return github_service.getGithubProfile(username=username)
+def getUser(username: str = Route(), git_source: str = Query(EGitSource.ALL.value)):
+    if(git_source == EGitSource.GIT_HUB.value):
+        return github_service.getGithubProfile(username=username)
+    elif(git_source == EGitSource.GIT_LAB.value):
+        return gitlab_service.getGitlabProfile(username=username)
+    else:
+        github_profile = github_service.getGithubProfile(username=username)
+        gitlab_profile = gitlab_service.getGitlabProfile(username=username)
+        profile = {
+            EGitSource.GIT_HUB.value: github_profile,
+            EGitSource.GIT_LAB.value: gitlab_profile
+        }
+        return profile
 
 @app.get(BASE_API_URI + EApiPaths.REPOS.value)
 @ValidateParameters()

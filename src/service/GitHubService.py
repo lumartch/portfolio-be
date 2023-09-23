@@ -6,6 +6,7 @@ from src.util.Enums import EGitHub
 from src.util.Enums import EGitSource
 from src.models.Profile import Profile
 from src.mappers.ProjectMapper import ProjectMapper
+from src.mappers.ProfileMapper import ProfileMapper
 from src.util.ErrorMessageFormatter import notFoundUsername
 
 class GitHubService():
@@ -17,7 +18,7 @@ class GitHubService():
             response = requests.get(url = profile_uri)
             if response.status_code == 404:
                 abort(404, notFoundUsername(username, EGitSource.GIT_HUB))
-            profile = json.loads(json.dumps(Profile(response.json()).__dict__))
+            profile = json.loads(json.dumps(ProfileMapper.fromGithubToProfile(response.json())))
             return profile
         # except requests.exceptions.Timeout:
             # Maybe set up for a retry, or continue in a retry loop

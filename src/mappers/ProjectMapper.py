@@ -1,4 +1,4 @@
-from src.models.ProjectBuilder import ProjectBuilder
+from src.models.builders.ProjectBuilder import ProjectBuilder
 from src.util.Enums import EGitSource
 
 class ProjectMapper:
@@ -16,6 +16,5 @@ class ProjectMapper:
         projectBuilder = ProjectBuilder()
         projectBuilder.set_source(EGitSource.GIT_LAB).set_id(json['id']).set_name(json['name']).set_full_name(json['path_with_namespace'])
         projectBuilder.set_html_url(json['web_url']).set_archived(archived).set_git_url(json['http_url_to_repo'])
-        projectBuilder.set_ssh_url(json['ssh_url_to_repo'])
-        projectBuilder.set_default_branch(json['default_branch']).set_created_at(json['created_at'])
+        projectBuilder.set_ssh_url(json['ssh_url_to_repo']).set_default_branch(json['default_branch']).set_created_at(json['created_at'])
         return projectBuilder.get_project().__dict__

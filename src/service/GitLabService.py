@@ -6,6 +6,7 @@ from src.util.Enums import EGitLab
 from src.util.Enums import EGitSource
 from src.models.Profile import Profile
 from src.mappers.ProjectMapper import ProjectMapper
+from src.mappers.ProfileMapper import ProfileMapper
 from src.util.ErrorMessageFormatter import notFoundUsername
 
 class GitLabService():
@@ -15,9 +16,9 @@ class GitLabService():
         profile_uri = self.profile_uri.replace('{username}', username)
         try:
             response = requests.get(url = profile_uri)
-            if response.status_code == 404:
+            if response.status_code == 404 or response.json() == []:
                 abort(404, notFoundUsername(username, git_source=EGitSource.GIT_LAB))
-            profile = json.loads(json.dumps(Profile(response.json()).__dict__))
+            profile = json.loads(json.dumps(ProfileMapper.fromGitlabToProfile(response.json()[0] )))
             return profile
         # except requests.exceptions.Timeout:
             # Maybe set up for a retry, or continue in a retry loop
