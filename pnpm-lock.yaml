@@ -26,6 +26,9 @@ dependencies:
   eslint-config-next:
     specifier: 13.4.2
     version: 13.4.2(eslint@8.40.0)(typescript@5.0.4)
+  flask-cors:
+    specifier: ^0.0.1
+    version: 0.0.1
   next:
     specifier: 13.4.3
     version: 13.4.3(react-dom@18.2.0)(react@18.2.0)
@@ -1300,6 +1303,10 @@ packages:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
+    dev: false
+
+  /flask-cors@0.0.1:
+    resolution: {integrity: sha512-ZEhUp1JH+Qxru2yOhsRhIgA18QR7D4S2wQtOqu28PvfeDFzz97Fu6M1fUXsjDwkEqSTuKdmJ34aCuYEr8dWthA==}
     dev: false
 
   /flat-cache@3.0.4:

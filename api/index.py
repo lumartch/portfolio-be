@@ -1,13 +1,15 @@
-from flask import Flask, request, abort
-from werkzeug.exceptions import HTTPException
-from flask_parameter_validation import ValidateParameters, Route, Json, Query
-
 import json
+from flask import Flask, request
+from flask_cors import CORS
+from werkzeug.exceptions import HTTPException
+from flask_parameter_validation import ValidateParameters, Route, Query
+
 from src.util.Enums import *
 from src.service.GitHubService import GitHubService
 from src.service.GitLabService import GitLabService
 
 app = Flask(__name__)
+CORS(app)
 BASE_API_URI = EApiPaths.BASE_API_URI.value + EApiPaths.USER.value + EApiPaths.PATH_PARAM_USER.value
 github_service = GitHubService()
 gitlab_service = GitLabService()
