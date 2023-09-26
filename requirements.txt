@@ -3,4 +3,5 @@ Flask==2.2.2
 requests==2.31.0
 flask_parameter_validation==2.1.9
 flask-cors==4.0.0
+flask-caching===2.0.2
 python-dotenv===1.0.0
