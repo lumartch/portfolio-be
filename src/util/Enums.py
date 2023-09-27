@@ -17,7 +17,7 @@ class EGitSource(Enum):
     GIT_LAB = 'gitlab'
 
 class EApiPaths(Enum):
-    BASE_API_URI = '/api'
+    BASE_API_URI = '/api/v1'
     PATH_PARAM_USER = '/<string:username>'
     USER = '/user'
     INFO = '/info'
