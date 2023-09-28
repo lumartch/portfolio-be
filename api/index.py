@@ -19,7 +19,7 @@ github_service = GitHubService()
 gitlab_service = GitLabService()
 
 @app.get(BASE_API_URI + EApiPaths.INFO.value)
-@cache.cached(timeout=120)
+@cache.cached(timeout=120, query_string=True)
 @ValidateParameters()
 def getUser(username: str = Route(), git_source: str = Query(EGitSource.ALL.value)):
     if(git_source == EGitSource.GIT_HUB.value):
@@ -36,6 +36,7 @@ def getUser(username: str = Route(), git_source: str = Query(EGitSource.ALL.valu
         return profile
 
 @app.get(BASE_API_URI + EApiPaths.REPOS.value)
+@cache.cached(timeout=120, query_string=True)
 @ValidateParameters()
 def getRepos(username: str = Route(), archived: bool = Query(False), git_source: str = Query(EGitSource.ALL.value)):
     if(git_source == EGitSource.GIT_HUB.value):
