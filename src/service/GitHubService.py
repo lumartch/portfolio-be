@@ -14,6 +14,7 @@ class GitHubService():
     repos_uri = EGitHub.GITHUB_BASE_URI.value + EGitHub.REPOS.value
     github_api_key = os.environ['GITHUB_API_KEY']
     headers = { 'Authorization': 'Bearer ' + github_api_key }
+    params = { 'sort': 'created', 'direction': 'des' }
     def getGithubProfile(self, username):
         profile_uri = self.profile_uri.replace('{username}', username)
         try:
@@ -32,7 +33,7 @@ class GitHubService():
     def getGithubRepos(self, username, archived):
         repos_uri = self.repos_uri.replace('{username}', username)
         try:
-            response = requests.get(url = repos_uri, headers=self.headers).text
+            response = requests.get(url = repos_uri, headers=self.headers, params=self.params).text
             projects = list( filter (lambda project: project['archived'] == archived, map(ProjectMapper.fromGitHubtoProject, json.loads(response)) ) )
             return projects
         # except requests.exceptions.Timeout:

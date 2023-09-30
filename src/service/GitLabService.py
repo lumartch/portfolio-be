@@ -31,7 +31,7 @@ class GitLabService():
     
     def getGitlabRepos(self, username: str, archived: bool = False):
         repos_uri = self.repos_uri.replace('{username}', username)
-        params = { "archived": archived }
+        params = { "archived": archived, 'order_by': 'created_at', 'sort': 'desc' }
         try:
             response = requests.get(url = repos_uri, headers=self.headers,  params=params).text
             projects = list(map( lambda entry: ProjectMapper.fromGitlabtoProject(json=entry, archived=archived), json.loads(response)))
